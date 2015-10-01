@@ -13,6 +13,23 @@
 #include "sloth.h"
 #include "lineart.h"
 
+int handleEvents() {
+    SDL_Event e;
+    while (SDL_PollEvent(&e)) {
+        switch (e.type) {
+            case SDL_QUIT:
+                return 0;
+            case SDL_KEYDOWN:
+                switch (e.key.keysym.sym) {
+                    case SDLK_q:
+                        return 0;
+                }
+                break;
+        }
+    }
+    return 1;
+}
+
 int main(int argc, const char *argv[]) {
     SDL_Window *win;
     SDL_Renderer *g;
@@ -35,7 +52,6 @@ int main(int argc, const char *argv[]) {
     // blue lines (for now)
     setColor(g, &blue);
     
-    int running = 1;
     int lineNo = 1; // line number; used to decide direction
     struct line previous,
                 current;
@@ -56,8 +72,8 @@ int main(int argc, const char *argv[]) {
     
     easyLine(&current, x1, y1, x2, y2);
     
+    clearScreen(g);
     drawLine(g, &current);
-    render(g);
     
     // increment line count so loop starts on horizonal
     lineNo++;
@@ -66,9 +82,12 @@ int main(int argc, const char *argv[]) {
     // to be the previous, because we start the loop
     // at the second
     previous = current;
-    delay(1);
+    delay(1000);
     
-    while (running) {
+    while (1) {
+        if (!handleEvents())
+            break;
+        
         int vertical = (lineNo % 2 == 1);
         
         int diff = genDifference();
@@ -93,7 +112,16 @@ int main(int argc, const char *argv[]) {
         previous = current;
         lineNo++;
         
-        sleep(1);
+        // break up sleeping into smaller segments
+        // to allow user to exit
+        int i;
+        for (i = 0; i < 10; i++) {
+            if (!handleEvents())
+                break;
+            delay(100);
+        }
+        if (i < 10)
+            break;
     }
     
     cleanup(g, win);
