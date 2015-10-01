@@ -88,6 +88,8 @@ int main(int argc, const char *argv[]) {
         if (!handleEvents())
             break;
         
+        // TODO Implement linked list
+        
         genNextLine(&previous, &current, lineNo);
         
         clearScreen(g);
