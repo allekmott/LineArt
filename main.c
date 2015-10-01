@@ -33,8 +33,8 @@ int handleEvents() {
 int main(int argc, const char *argv[]) {
     SDL_Window *win;
     SDL_Renderer *g;
-    int win_width = 500,
-        win_height = 500;
+    int win_width = 1152,
+        win_height = 720;
     int flag_forceinwin = 1;
     
     // Define some nice colors

@@ -17,7 +17,7 @@ int genDifference() {
     // subtract MAX -> -MAX <= diff <= MAX
     diff -= MAX_LINE_LENGTH;
     
-    if (diff == 0)
+    if (abs(diff) < 5)
         diff = genDifference();
     
     return diff;
