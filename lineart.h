@@ -29,6 +29,13 @@ struct point {
     int y;
 };
 
+// data structure for node
+// in linked list of lines
+struct node {
+    struct line *line;
+    struct node *next;
+};
+
 // Generate displacement value for new line
 int genDifference();
 
@@ -42,5 +49,9 @@ void getMidpoint(struct line *l, struct point *p);
 
 // Generate next line in sequence
 void genNextLine(struct line *previous, struct line *current, int lineNo);
+
+void freeLineNode(struct node *node);
+
+void freeLineList(struct node *root);
 
 #endif /* lineart_h */
