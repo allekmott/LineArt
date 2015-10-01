@@ -43,6 +43,10 @@ SDL_Window *getWindow() {
     return w;
 }
 
+void getWindowSize(SDL_Window *w, int *width, int *height) {
+    SDL_GetWindowSize(w, width, height);
+}
+
 SDL_Renderer *getRenderer(SDL_Window *w) {
     SDL_Renderer *r = SDL_CreateRenderer(w, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (r == NULL)

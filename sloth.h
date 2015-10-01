@@ -37,6 +37,9 @@ void initSDL();
 // grab a window from sdl
 SDL_Window *getWindow();
 
+// get size of window, store in int args
+void getWindowSize(SDL_Window *w, int *width, int *height);
+
 // grab a window's renderer from sdl
 SDL_Renderer *getRenderer(SDL_Window *w);
 
@@ -54,7 +57,7 @@ void clearScreen(SDL_Renderer* r);
 // draw line to renderer
 void drawLine(SDL_Renderer *r, struct line *l);
 
-// render to screen
+// draw renderer to screen
 void render(SDL_Renderer *r);
 
 // SDL pause
