@@ -10,19 +10,13 @@
 #define sloth_h
 
 #include <SDL2/SDL.h>
+#include "lineart.h"
 
 struct color {
     Uint8 r;
     Uint8 g;
     Uint8 b;
     Uint8 a;
-};
-
-struct line {
-    int x1;
-    int y1;
-    int x2;
-    int y2;
 };
 
 // clean up (free win, g)
