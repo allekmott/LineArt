@@ -67,8 +67,8 @@ void clearScreen(SDL_Renderer *r) {
     SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
 }
 
-void fillRect(SDL_Renderer *r, SDL_Rect *rect) {
-    SDL_RenderFillRect(r, rect);
+void drawLine(SDL_Renderer *r, struct line *l) {
+    SDL_RenderDrawLine(r, l->x1, l->y1, l->x2, l->y2);
 }
 
 void render(SDL_Renderer *r) {

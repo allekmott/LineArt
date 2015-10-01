@@ -18,6 +18,13 @@ struct color {
     Uint8 a;
 };
 
+struct line {
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+};
+
 // clean up (free win, g)
 void cleanup(SDL_Renderer *r, SDL_Window *w);
 
@@ -44,8 +51,8 @@ void setClearColor(struct color *c);
 // clear the screen (fill with clearColor)
 void clearScreen(SDL_Renderer* r);
 
-// add rectangle to render queue
-void fillRect(SDL_Renderer *r, SDL_Rect *rect);
+// draw line to renderer
+void drawLine(SDL_Renderer *r, struct line *l);
 
 // render to screen
 void render(SDL_Renderer *r);

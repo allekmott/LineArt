@@ -28,10 +28,11 @@ int main(int argc, const char *argv[]) {
     // clear screen
     clearScreen(g);
     
-    // new rect @ 50, 50 w/ dimms 50x50
-    SDL_Rect rect = {50, 50, 50, 50};
     setColor(g, &blue);
-    fillRect(g, &rect);
+    
+    struct line l = {50, 50, 200, 300};
+    drawLine(g, &l);
+    
     render(g);
     delay(5000);
     
