@@ -40,4 +40,7 @@ void easyLine(struct line *l, int x1, int y1, int x2, int y2);
 // stores in point p
 void getMidpoint(struct line *l, struct point *p);
 
+// Generate next line in sequence
+void genNextLine(struct line *previous, struct line *current, int lineNo);
+
 #endif /* lineart_h */

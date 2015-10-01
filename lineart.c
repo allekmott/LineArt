@@ -34,3 +34,28 @@ void getMidpoint(struct line *l, struct point *p) {
     p->x = (l->x1 + l->x2) / 2;
     p->y = (l->y1 + l->y2) / 2;
 }
+
+void genNextLine(struct line *previous, struct line *current, int lineNo) {
+    int vertical = (lineNo % 2 == 1);
+    
+    int diff = genDifference();
+    
+    struct point midpoint;
+    
+    getMidpoint(previous, &midpoint);
+    int x1, x2, y1, y2;
+    
+    x1 = midpoint.x;
+    y1 = midpoint.y;
+    
+    if (vertical) {
+        // when moving vertically, x won't change
+        x2 = x1;
+        y2 = y1 + diff;
+    } else {
+        // when moving horizontally, y won't change
+        y2 = y1;
+        x2 = x1 + diff;
+    }
+    easyLine(current, x1, y1, x2, y2);
+}

@@ -55,7 +55,6 @@ int main(int argc, const char *argv[]) {
     int lineNo = 1; // line number; used to decide direction
     struct line previous,
                 current;
-    struct point midpoint;
     
     // first line, start at middle, rand length, go from there
     int win_width, win_height;
@@ -74,6 +73,7 @@ int main(int argc, const char *argv[]) {
     
     clearScreen(g);
     drawLine(g, &current);
+    render(g);
     
     // increment line count so loop starts on horizonal
     lineNo++;
@@ -88,24 +88,9 @@ int main(int argc, const char *argv[]) {
         if (!handleEvents())
             break;
         
-        int vertical = (lineNo % 2 == 1);
+        genNextLine(&previous, &current, lineNo);
         
-        int diff = genDifference();
-        getMidpoint(&previous, &midpoint);
-        x1 = midpoint.x;
-        y1 = midpoint.y;
-        
-        if (vertical) {
-            // when moving vertically, x won't change
-            x2 = x1;
-            y2 = y1 + diff;
-        } else {
-            // when moving horizontally, y won't change
-            y2 = y1;
-            x2 = x1 + diff;
-        }
-        easyLine(&current, x1, y1, x2, y2);
-        
+        clearScreen(g);
         drawLine(g, &current);
         render(g);
         
@@ -113,7 +98,7 @@ int main(int argc, const char *argv[]) {
         lineNo++;
         
         // break up sleeping into smaller segments
-        // to allow user to exit
+        // to allow user to exit faster
         int i;
         for (i = 0; i < 10; i++) {
             if (!handleEvents())
