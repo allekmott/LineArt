@@ -23,11 +23,13 @@ int genDifference() {
     return diff;
 }
 
-void easyLine(struct line *l, int x1, int y1, int x2, int y2) {
+struct line *easyLine(int x1, int y1, int x2, int y2) {
+    struct line *l = malloc(sizeof(struct line));
     l->x1 = x1;
     l->y1 = y1;
     l->x2 = x2;
     l->y2 = y2;
+    return l;
 }
 
 void getMidpoint(struct line *l, struct point *p) {
@@ -35,7 +37,7 @@ void getMidpoint(struct line *l, struct point *p) {
     p->y = (l->y1 + l->y2) / 2;
 }
 
-void genNextLine(struct line *previous, struct line *current, int lineNo) {
+struct line *genNextLine(struct line *previous, int lineNo) {
     int vertical = (lineNo % 2 == 1);
     
     int diff = genDifference();
@@ -57,5 +59,15 @@ void genNextLine(struct line *previous, struct line *current, int lineNo) {
         y2 = y1;
         x2 = x1 + diff;
     }
-    easyLine(current, x1, y1, x2, y2);
+    return easyLine(x1, y1, x2, y2);
+}
+
+void freeLineList(struct node *root) {
+    struct node *node = root;
+    while (node != NULL) {
+        struct node *temp = node;
+        node = node->next;
+        free(temp);
+    }
+    root = NULL;
 }

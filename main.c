@@ -53,8 +53,9 @@ int main(int argc, const char *argv[]) {
     setColor(g, &blue);
     
     int lineNo = 1; // line number; used to decide direction
-    struct line previous,
-                current;
+    struct node *root = malloc(sizeof(struct node));
+    struct node *previous;
+    struct node *current;
     
     // first line, start at middle, rand length, go from there
     int win_width, win_height;
@@ -69,31 +70,32 @@ int main(int argc, const char *argv[]) {
     int x2 = x1,
     y2 = y1 + genDifference();
     
-    easyLine(&current, x1, y1, x2, y2);
+    struct line *firstLine = easyLine(x1, y1, x2, y2);
+    root->line = firstLine;
+    root->next = current;
+    previous = root;
     
     clearScreen(g);
-    drawLine(g, &current);
+    drawLine(g, root->line);
     render(g);
     
     // increment line count so loop starts on horizonal
     lineNo++;
     
-    // when we enter the loop, we want the first line
-    // to be the previous, because we start the loop
-    // at the second
-    previous = current;
     delay(1000);
     
     while (1) {
         if (!handleEvents())
             break;
         
-        // TODO Implement linked list
-        
-        genNextLine(&previous, &current, lineNo);
+        // allocate memory for new node
+        current = malloc(sizeof(struct node));
+        previous->next = current;
+        current->line = genNextLine(previous->line, lineNo);
+        current->next = NULL;
         
         clearScreen(g);
-        drawLine(g, &current);
+        drawAllLines(g, root);
         render(g);
         
         previous = current;
@@ -111,6 +113,7 @@ int main(int argc, const char *argv[]) {
             break;
     }
     
+    freeLineList(root);
     cleanup(g, win);
     
     return 0;

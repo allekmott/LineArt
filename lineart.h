@@ -40,7 +40,7 @@ struct node {
 int genDifference();
 
 // Easy line resetting/initialization
-void easyLine(struct line *l, int x1, int y1, int x2, int y2);
+struct line *easyLine(int x1, int y1, int x2, int y2);
 
 
 // Calculates midpoint of line l,
@@ -48,10 +48,9 @@ void easyLine(struct line *l, int x1, int y1, int x2, int y2);
 void getMidpoint(struct line *l, struct point *p);
 
 // Generate next line in sequence
-void genNextLine(struct line *previous, struct line *current, int lineNo);
+struct line *genNextLine(struct line *previous, int lineNo);
 
-void freeLineNode(struct node *node);
-
+// Free a linked list of lines
 void freeLineList(struct node *root);
 
 #endif /* lineart_h */

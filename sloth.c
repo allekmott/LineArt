@@ -75,6 +75,14 @@ void drawLine(SDL_Renderer *r, struct line *l) {
     SDL_RenderDrawLine(r, l->x1, l->y1, l->x2, l->y2);
 }
 
+void drawAllLines(SDL_Renderer *r, struct node *root) {
+    struct node *node = root;
+    while (node != NULL) {
+        drawLine(r, node->line);
+        if ((node = node->next) == NULL) break;
+    }
+}
+
 void render(SDL_Renderer *r) {
     SDL_RenderPresent(r);
 }

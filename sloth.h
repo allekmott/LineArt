@@ -51,6 +51,9 @@ void clearScreen(SDL_Renderer* r);
 // draw line to renderer
 void drawLine(SDL_Renderer *r, struct line *l);
 
+// draw all lines in list to renderer
+void drawAllLines(SDL_Renderer *r, struct node *root);
+
 // draw renderer to screen
 void render(SDL_Renderer *r);
 
