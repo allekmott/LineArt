@@ -29,7 +29,7 @@ void gtfo(SDL_Renderer *r, SDL_Window *w);
 void initSDL();
 
 // grab a window from sdl
-SDL_Window *getWindow();
+SDL_Window *getWindow(int width, int height);
 
 // get size of window, store in int args
 void getWindowSize(SDL_Window *w, int *width, int *height);

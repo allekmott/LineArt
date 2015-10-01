@@ -33,6 +33,9 @@ int handleEvents() {
 int main(int argc, const char *argv[]) {
     SDL_Window *win;
     SDL_Renderer *g;
+    int win_width = 500,
+        win_height = 500;
+    int flag_forceinwin = 1;
     
     // Define some nice colors
     struct color blue = {0, 0, 255, 255};
@@ -43,7 +46,7 @@ int main(int argc, const char *argv[]) {
     initSDL();
     
     // grab a window and a renderer
-    win = getWindow();
+    win = getWindow(win_width, win_height);
     g = getRenderer(win);
     
     // clear screen
@@ -58,9 +61,6 @@ int main(int argc, const char *argv[]) {
     struct node *current;
     
     // first line, start at middle, rand length, go from there
-    int win_width, win_height;
-    getWindowSize(win, &win_width, &win_height);
-    
     int x1 = win_width / 2,
     y1 = win_height / 2;
     
@@ -82,7 +82,7 @@ int main(int argc, const char *argv[]) {
     // increment line count so loop starts on horizonal
     lineNo++;
     
-    delay(1000);
+    delay(10);
     
     while (1) {
         if (!handleEvents())
@@ -91,7 +91,20 @@ int main(int argc, const char *argv[]) {
         // allocate memory for new node
         current = malloc(sizeof(struct node));
         previous->next = current;
-        current->line = genNextLine(previous->line, lineNo);
+        
+        if (flag_forceinwin) {
+            while (1) {
+                current->line = genNextLine(previous->line, lineNo);
+                if (current->line->x2 > win_width ||
+                    current->line->y2 > win_height)
+                    free(current->line);
+                else
+                    break;
+            }
+        } else {
+            current->line = genNextLine(previous->line, lineNo);
+        }
+        
         current->next = NULL;
         
         clearScreen(g);
@@ -107,7 +120,7 @@ int main(int argc, const char *argv[]) {
         for (i = 0; i < 10; i++) {
             if (!handleEvents())
                 break;
-            delay(100);
+            delay(1);
         }
         if (i < 10)
             break;

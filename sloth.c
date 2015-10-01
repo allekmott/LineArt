@@ -30,12 +30,12 @@ void initSDL() {
         return gtfo(NULL, NULL);
 }
 
-SDL_Window *getWindow() {
+SDL_Window *getWindow(int width, int height) {
     SDL_Window *w = SDL_CreateWindow("LineArt",
                                      SDL_WINDOWPOS_UNDEFINED,
                                      SDL_WINDOWPOS_UNDEFINED,
-                                     500,
-                                     500,
+                                     width,
+                                     height,
                                      SDL_WINDOW_SHOWN);
     if (w == NULL) {
         gtfo(NULL, w);

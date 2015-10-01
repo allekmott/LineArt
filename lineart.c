@@ -54,16 +54,19 @@ struct line *genNextLine(struct line *previous, int lineNo) {
         // when moving vertically, x won't change
         x2 = x1;
         y2 = y1 + diff;
+        
+        // if line breaks window boundaries, reverse direction
         if (y2 < 0)
             y2 = y1 - diff;
     } else {
         // when moving horizontally, y won't change
         y2 = y1;
         x2 = x1 + diff;
+        
+        // if line breaks window boundaries, reverse direction
         if (x2 < 0)
             x2 = x1 - diff;
     }
-    
     return easyLine(x1, y1, x2, y2);
 }
 
