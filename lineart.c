@@ -33,18 +33,28 @@ struct line *easyLine(int x1, int y1, int x2, int y2) {
 }
 
 void getMidpoint(struct line *l, struct point *p) {
+    // midpoint formula!
     p->x = (l->x1 + l->x2) / 2;
     p->y = (l->y1 + l->y2) / 2;
 }
 
 struct line *genNextLine(struct line *previous, int lineNo) {
+    // vertcal on odds, horizontal on evens (1st always vert)
     int vertical = (lineNo % 2 == 1);
     
     int diff = genDifference();
     
     struct point midpoint;
     
-    getMidpoint(previous, &midpoint);
+    if (previous == NULL) {
+        // first line
+        midpoint.x = 0;
+        midpoint.y = 0;
+    } else {
+        // not first line
+        getMidpoint(previous, &midpoint);
+    }
+    
     int x1, x2, y1, y2;
     
     x1 = midpoint.x;
@@ -55,7 +65,7 @@ struct line *genNextLine(struct line *previous, int lineNo) {
         x2 = x1;
         y2 = y1 + diff;
         
-        // if line breaks window boundaries, reverse direction
+        // if line breaks negative window boundaries, reverse direction
         if (y2 < 0)
             y2 = y1 - diff;
     } else {
@@ -63,7 +73,7 @@ struct line *genNextLine(struct line *previous, int lineNo) {
         y2 = y1;
         x2 = x1 + diff;
         
-        // if line breaks window boundaries, reverse direction
+        // if line breaks negative window boundaries, reverse direction
         if (x2 < 0)
             x2 = x1 - diff;
     }

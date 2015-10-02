@@ -93,7 +93,7 @@ int main(int argc, const char *argv[]) {
     // increment line count so loop starts on horizonal
     lineNo++;
     
-    delay(10);
+    delay(1000);
     
     while (1) {
         if (!handleEvents())
@@ -141,7 +141,7 @@ int main(int argc, const char *argv[]) {
         for (i = 0; i < 10; i++) {
             if (!handleEvents())
                 break;
-            delay(1);
+            delay(100);
         }
         if (i < 10)
             break;
