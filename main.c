@@ -56,6 +56,7 @@ int main(int argc, const char *argv[]) {
     setColor(g, &blue);
     
     // line number; used to decide direction
+    // start at 1
     int lineNo = 1;
     
     
@@ -70,18 +71,13 @@ int main(int argc, const char *argv[]) {
     // line node undergoing generation
     struct node *current;
     
-    
     // first line, start at middle, rand length, go from there
-    int x1 = win_width / 2,
-    y1 = win_height / 2;
+    struct line *firstLine = genNextLine(NULL, lineNo);
     
-    // x2, y2 change in y; only one changes per line
-    // first line will always be vertical, so only
-    // y will change
-    int x2 = x1,
-    y2 = y1 + genDifference();
+    // move line to center (genNextLine starts at (0, 0) when
+    // previous is NULL)
+    translateLine(firstLine, win_width / 2, win_height / 2);
     
-    struct line *firstLine = easyLine(x1, y1, x2, y2);
     root->line = firstLine;
     root->next = current;
     previous = root;
@@ -93,7 +89,7 @@ int main(int argc, const char *argv[]) {
     // increment line count so loop starts on horizonal
     lineNo++;
     
-    delay(1000);
+    delay(100);
     
     while (1) {
         if (!handleEvents())
@@ -141,7 +137,7 @@ int main(int argc, const char *argv[]) {
         for (i = 0; i < 10; i++) {
             if (!handleEvents())
                 break;
-            delay(100);
+            delay(10);
         }
         if (i < 10)
             break;

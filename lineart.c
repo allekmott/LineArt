@@ -80,6 +80,13 @@ struct line *genNextLine(struct line *previous, int lineNo) {
     return easyLine(x1, y1, x2, y2);
 }
 
+void translateLine(struct line *l, int x, int y) {
+    l->x1 += x;
+    l->x2 += x;
+    l->y1 += y;
+    l->y2 += y;
+}
+
 void freeLineList(struct node *root) {
     struct node *node = root;
     while (node != NULL) {

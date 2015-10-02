@@ -50,6 +50,9 @@ void getMidpoint(struct line *l, struct point *p);
 // Generate next line in sequence
 struct line *genNextLine(struct line *previous, int lineNo);
 
+// Translate a line x in the x-direction, y in the y-direction
+void translateLine(struct line *l, int x, int y);
+
 // Free a linked list of lines
 void freeLineList(struct node *root);
 
