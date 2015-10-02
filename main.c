@@ -55,10 +55,21 @@ int main(int argc, const char *argv[]) {
     // blue lines (for now)
     setColor(g, &blue);
     
-    int lineNo = 1; // line number; used to decide direction
+    // line number; used to decide direction
+    int lineNo = 1;
+    
+    
+    // necesary line node structures for linked list:
+    
+    // root line node in list
     struct node *root = malloc(sizeof(struct node));
+    
+    // previously generated line node
     struct node *previous;
+    
+    // line node undergoing generation
     struct node *current;
+    
     
     // first line, start at middle, rand length, go from there
     int x1 = win_width / 2,
@@ -90,9 +101,13 @@ int main(int argc, const char *argv[]) {
         
         // allocate memory for new node
         current = malloc(sizeof(struct node));
+        
+        // add to linked list;
+        // new is old's next
         previous->next = current;
         
         if (flag_forceinwin) {
+            // keep line bound to window bounds
             while (1) {
                 current->line = genNextLine(previous->line, lineNo);
                 if (current->line->x2 > win_width ||
@@ -102,9 +117,15 @@ int main(int argc, const char *argv[]) {
                     break;
             }
         } else {
+            // line can do whatever tf it wants
             current->line = genNextLine(previous->line, lineNo);
         }
         
+        // THIS is very necessary;
+        // in rendering:
+        // iterate through linked list until next is NULL
+        // if you don't set new next to null, it thinks theres another
+        // value (will be reset to next element in next iteration of loop)
         current->next = NULL;
         
         clearScreen(g);
