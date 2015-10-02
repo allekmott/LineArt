@@ -35,10 +35,11 @@ int main(int argc, const char *argv[]) {
     SDL_Renderer *g;
     int win_width = 1152,
         win_height = 720;
-    int flag_forceinwin = 1;
+    int flag_forceinwin = 1,
+        dtime = 1000;
     
-    // Define some nice colors
-    struct color blue = {0, 0, 255, 255};
+    struct color *renderColor = &GHETTO_WHITE;
+    struct color *backgroundColor = &GHETTO_BLACK;
     
     // seed dat RNG
     srand((unsigned int) time(NULL));
@@ -50,10 +51,11 @@ int main(int argc, const char *argv[]) {
     g = getRenderer(win);
     
     // clear screen
+    setClearColor(backgroundColor);
     clearScreen(g);
     
     // blue lines (for now)
-    setColor(g, &blue);
+    setColor(g, renderColor);
     
     // line number; used to decide direction
     // start at 1
@@ -89,7 +91,7 @@ int main(int argc, const char *argv[]) {
     // increment line count so loop starts on horizonal
     lineNo++;
     
-    delay(100);
+    delay(dtime);
     
     while (1) {
         if (!handleEvents())
@@ -137,7 +139,7 @@ int main(int argc, const char *argv[]) {
         for (i = 0; i < 10; i++) {
             if (!handleEvents())
                 break;
-            delay(10);
+            delay(dtime / 10);
         }
         if (i < 10)
             break;

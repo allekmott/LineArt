@@ -19,6 +19,13 @@ struct color {
     Uint8 a;
 };
 
+// Define some nice colors
+static struct color GHETTO_BLUE = {0, 0, 255, 255},
+    GHETTO_RED = {255, 0, 0, 255},
+    GHETTO_GREEN = {0, 255, 0, 255},
+    GHETTO_BLACK = {0, 0, 0, 255},
+    GHETTO_WHITE = {255, 255, 255, 0};
+
 // clean up (free win, g)
 void cleanup(SDL_Renderer *r, SDL_Window *w);
 
