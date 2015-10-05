@@ -58,7 +58,8 @@ int main(int argc, const char *argv[]) {
     			break;
     		case 'y': // yolo mode
     			flag_forceinwin = 0;
-    			printf("YOLO mode set intiated\n");
+    			printf("YOLO mode intiated\n");
+    			break;
     		case 'h':
     			printHelp(argv[0]);
     			return 0;
