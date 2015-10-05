@@ -9,6 +9,8 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <ctype.h>
 
 #include "sloth.h"
 #include "lineart.h"
@@ -30,6 +32,11 @@ int handleEvents() {
     return 1;
 }
 
+void printHelp(const char *cmd) {
+	printf("Usage: %s\n\n", cmd);
+	printf("Arguments:\n    -t x\tSet delay time to x (ms).\n    -y\t\tInitiate yolo mode\n");
+}
+
 int main(int argc, const char *argv[]) {
     SDL_Window *win;
     SDL_Renderer *g;
@@ -40,6 +47,25 @@ int main(int argc, const char *argv[]) {
     
     struct color *renderColor = &GHETTO_WHITE;
     struct color *backgroundColor = &GHETTO_BLACK;
+
+    // dem args
+    int c;
+    while ((c = getopt(argc, argv, "t:yh")) != -1) {
+    	switch (c) {
+    		case 't': // reset delay time
+    			dtime = atoi(optarg);
+    			printf("Delay time set to: %ims\n", dtime);
+    			break;
+    		case 'y': // yolo mode
+    			flag_forceinwin = 0;
+    			printf("YOLO mode set intiated\n");
+    		case 'h':
+    			printHelp(argv[0]);
+    			return 0;
+    		default:
+    			break;
+    	}
+    }
     
     // seed dat RNG
     srand((unsigned int) time(NULL));
