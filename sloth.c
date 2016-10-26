@@ -48,7 +48,8 @@ void getWindowSize(SDL_Window *w, int *width, int *height) {
 }
 
 SDL_Renderer *getRenderer(SDL_Window *w) {
-    SDL_Renderer *r = SDL_CreateRenderer(w, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_Renderer *r = SDL_CreateRenderer(w, 0,
+            SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (r == NULL)
         gtfo(r, w);
     return r;
@@ -65,8 +66,9 @@ void setClearColor(struct color *c) {
 void clearScreen(SDL_Renderer *r) {
     struct color c; // to store pre-clear draw color
     SDL_GetRenderDrawColor(r, &(c.r), &(c.g), &(c.b), &(c.a));
-    
-    SDL_SetRenderDrawColor(r, clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+
+    SDL_SetRenderDrawColor(r, clearColor.r, clearColor.g, clearColor.b,
+            clearColor.a);
     SDL_RenderClear(r);
     SDL_SetRenderDrawColor(r, c.r, c.g, c.b, c.a);
 }
