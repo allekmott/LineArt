@@ -21,6 +21,7 @@ struct line {
     int y1;
     int x2;
     int y2;
+    struct color *color;
 };
 
 // data structure for point (x, y)
@@ -40,7 +41,7 @@ struct node {
 int genDifference();
 
 // Easy line resetting/initialization
-struct line *easyLine(int x1, int y1, int x2, int y2);
+struct line *easyLine(int x1, int y1, int x2, int y2, struct color *color);
 
 
 // Calculates midpoint of line l,
@@ -48,7 +49,8 @@ struct line *easyLine(int x1, int y1, int x2, int y2);
 void getMidpoint(struct line *l, struct point *p);
 
 // Generate next line in sequence
-struct line *genNextLine(struct line *previous, int lineNo);
+struct line *genNextLine(struct line *previous, int lineNo,
+        struct color *color);
 
 // Translate a line x in the x-direction, y in the y-direction
 void translateLine(struct line *l, int x, int y);

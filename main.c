@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
     int win_width = 1152,
         win_height = 720;
     int flag_forceinwin = 1,
+        flag_crazy = 0,
         dtime = 1000;
 
     struct color *renderColor = &GHETTO_WHITE;
@@ -52,7 +53,7 @@ int main(int argc, char **argv) {
 
     // dem args
     int c;
-    while ((c = getopt(argc, argv, "t:yh")) != -1) {
+    while ((c = getopt(argc, argv, "t:yhc")) != -1) {
     	switch (c) {
     		case 't': // reset delay time
     			dtime = atoi(optarg);
@@ -65,6 +66,10 @@ int main(int argc, char **argv) {
     		case 'h':
     			printHelp(argv[0]);
     			return 0;
+            case 'c':
+                flag_crazy = 1;
+                printf("Crazy mode initiated\n");
+                break;
     		default:
     			break;
     	}
@@ -103,7 +108,7 @@ int main(int argc, char **argv) {
     struct node *current;
 
     // first line, start at middle, rand length, go from there
-    struct line *firstLine = genNextLine(NULL, lineNo);
+    struct line *firstLine = genNextLine(NULL, lineNo, randomColor());
 
     // move line to center (genNextLine starts at (0, 0) when
     // previous is NULL)
@@ -136,7 +141,8 @@ int main(int argc, char **argv) {
         if (flag_forceinwin) {
             // keep line bound to window bounds
             while (1) {
-                current->line = genNextLine(previous->line, lineNo);
+                current->line = genNextLine(previous->line, lineNo,
+                    randomColor());
                 if (current->line->x2 > win_width ||
                     current->line->y2 > win_height)
                     free(current->line);
@@ -145,7 +151,7 @@ int main(int argc, char **argv) {
             }
         } else {
             // line can do whatever tf it wants
-            current->line = genNextLine(previous->line, lineNo);
+            current->line = genNextLine(previous->line, lineNo, randomColor());
         }
 
         // THIS is very necessary;

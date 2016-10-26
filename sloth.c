@@ -7,6 +7,8 @@
 //
 
 #include "sloth.h"
+
+#include <math.h>
 #include <SDL2/SDL.h>
 
 struct color clearColor = {255, 255, 255, 255};
@@ -55,6 +57,11 @@ SDL_Renderer *getRenderer(SDL_Window *w) {
     return r;
 }
 
+const struct color *randomColor() {
+    int colorNum = rand() % 5;
+    return RENDER_COLORS[colorNum];
+}
+
 void setColor(SDL_Renderer* r, struct color *c) {
     SDL_SetRenderDrawColor(r, c->r, c->g, c->b, c->a);
 }
@@ -74,6 +81,9 @@ void clearScreen(SDL_Renderer *r) {
 }
 
 void drawLine(SDL_Renderer *r, struct line *l) {
+    if (l->color != NULL)
+        setColor(r, l->color);
+
     SDL_RenderDrawLine(r, l->x1, l->y1, l->x2, l->y2);
 }
 

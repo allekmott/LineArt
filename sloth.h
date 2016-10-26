@@ -24,7 +24,18 @@ static struct color GHETTO_BLUE = {0, 0, 255, 255},
     GHETTO_RED = {255, 0, 0, 255},
     GHETTO_GREEN = {0, 255, 0, 255},
     GHETTO_BLACK = {0, 0, 0, 255},
-    GHETTO_WHITE = {255, 255, 255, 0};
+    GHETTO_WHITE = {255, 255, 255, 0},
+    NEON_YELLOW = {243, 243, 21, 255},
+    NEON_GREEN = {131, 245, 44, 255},
+    NEON_ROUNGE = {255, 102, 0, 255},
+    NEON_MAGENTA = {255, 0, 153, 255},
+    NEON_PURPLE = {110, 13, 208, 255};
+
+const struct color *RENDER_COLORS[] = {&NEON_YELLOW,
+    &NEON_GREEN,
+    &NEON_ROUNGE,
+    &NEON_MAGENTA,
+    &NEON_PURPLE};
 
 // clean up (free win, g)
 void cleanup(SDL_Renderer *r, SDL_Window *w);
@@ -43,6 +54,9 @@ void getWindowSize(SDL_Window *w, int *width, int *height);
 
 // grab a window's renderer from sdl
 SDL_Renderer *getRenderer(SDL_Window *w);
+
+// pull random color from available colors
+const struct color *randomColor();
 
 // set the renderer's color
 void setColor(SDL_Renderer *r, struct color *c);
